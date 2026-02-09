@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ruleset name="GlotCore Limit Import Strings Number">
+	<description>GlotCore Limit Import Strings Number rules for PHP_CodeSniffer</description>
+
+	<rule ref="WordPress">
+	</rule>
+</ruleset>
