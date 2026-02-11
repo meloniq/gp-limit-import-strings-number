@@ -36,5 +36,3 @@ class Format_ResX extends GP_Format_ResX {
 		return $entries;
 	}
 }
-
-GP::$formats['resx'] = new Format_ResX();

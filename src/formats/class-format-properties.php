@@ -36,5 +36,3 @@ class Format_Properties extends GP_Format_Properties {
 		return $entries;
 	}
 }
-
-GP::$formats['properties'] = new Format_Properties();

@@ -60,5 +60,3 @@ class Format_PO extends GP_Format_PO {
 		return $entries;
 	}
 }
-
-GP::$formats['po'] = new Format_PO();

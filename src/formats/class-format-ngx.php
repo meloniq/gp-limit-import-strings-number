@@ -36,5 +36,3 @@ class Format_NGX extends GP_Format_NGX {
 		return $entries;
 	}
 }
-
-GP::$formats['ngx'] = new Format_NGX();

@@ -60,5 +60,3 @@ class Format_MO extends GP_Format_MO {
 		return $entries;
 	}
 }
-
-GP::$formats['mo'] = new Format_MO();

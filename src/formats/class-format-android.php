@@ -36,5 +36,3 @@ class Format_Android extends GP_Format_Android {
 		return $entries;
 	}
 }
-
-GP::$formats['android'] = new Format_Android();

@@ -36,5 +36,3 @@ class Format_Strings extends GP_Format_Strings {
 		return $entries;
 	}
 }
-
-GP::$formats['strings'] = new Format_Strings();

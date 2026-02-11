@@ -7,6 +7,8 @@
 
 namespace GlotCore\LimitImportStringsNumber;
 
+use GP;
+
 /**
  * Core class.
  */
@@ -30,16 +32,67 @@ class Core {
 	 * @return void
 	 */
 	public function register_formats() {
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-android.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-jed1x.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-json.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-ngx.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-php.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-po.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-mo.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-properties.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-resx.php';
-		require_once GC_LISN_PLUGIN_DIR . '/src/formats/class-format-strings.php';
+		$formats = $this->get_supported_formats();
+
+		// Load the format classes for the supported formats.
+		foreach ( $formats as $format_key => $format_class ) {
+			$file_path = GC_LISN_PLUGIN_DIR . '/src/formats/class-format-' . $format_key . '.php';
+			if ( file_exists( $file_path ) ) {
+				require_once $file_path;
+			}
+		}
+
+		/**
+		 * Action triggered after the format classes for the supported formats have been loaded.
+		 * This action allows further loading of format classes or modification of the formats array before the format classes are instantiated and registered in GP::$formats.
+		 *
+		 * @param array $formats An array of format key to format class name mappings for the formats supported by this plugin, after loading the format classes.
+		 */
+		do_action( 'glotcore_formats_loaded', $formats );
+
+		// Instantiate the format classes and register them in GP::$formats.
+		foreach ( $formats as $format_key => $format_class ) {
+			if ( class_exists( $format_class ) ) {
+				GP::$formats[ $format_key ] = new $format_class();
+			}
+		}
+
+		/**
+		 * Action triggered after the format classes for the supported formats have been instantiated and registered in GP::$formats.
+		 * This action allows further modification of the formats registered in GP::$formats after they have been instantiated and registered.
+		 *
+		 * @param array $formats An array of format key to format class name mappings for the formats supported by this plugin, after instantiating and registering the format classes in GP::$formats.
+		 */
+		do_action( 'glotcore_formats_registered', $formats );
+	}
+
+	/**
+	 * Returns an array of format key to format class name mappings for the formats supported by this plugin.
+	 *
+	 * @return array An array of format key to format class name mappings.
+	 */
+	public function get_supported_formats() {
+		$data = array(
+			'android'    => Format_Android::class,
+			'jed1x'      => Format_Jed1x::class,
+			'json'       => Format_JSON::class,
+			'ngx'        => Format_NGX::class,
+			'php'        => Format_PHP::class,
+			'po'         => Format_PO::class,
+			'mo'         => Format_MO::class,
+			'properties' => Format_Properties::class,
+			'resx'       => Format_ResX::class,
+			'strings'    => Format_Strings::class,
+		);
+
+		/**
+		 * Filter the supported formats for this plugin.
+		 *
+		 * @param array $data An array of format key to format class name mappings for the formats supported by this plugin.
+		 */
+		$data = apply_filters( 'glotcore_supported_formats', $data );
+
+		return $data;
 	}
 
 	/**

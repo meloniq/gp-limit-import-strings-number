@@ -60,5 +60,3 @@ class Format_PHP extends GP_Format_PHP {
 		return $entries;
 	}
 }
-
-GP::$formats['php'] = new Format_PHP();

@@ -60,5 +60,3 @@ class Format_JSON extends GP_Format_JSON {
 		return $entries;
 	}
 }
-
-GP::$formats['json'] = new Format_JSON();

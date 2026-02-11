@@ -36,5 +36,3 @@ class Format_Jed1x extends GP_Format_Jed1x {
 		return $entries;
 	}
 }
-
-GP::$formats['jed1x'] = new Format_Jed1x();
