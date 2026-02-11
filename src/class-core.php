@@ -107,15 +107,20 @@ class Core {
 	public function limit_imported_strings_number( $entries, $format, $file_name ) {
 		$entries_original = $entries;
 
+		// If the entries are not an object, return them as is (likely false on failure).
+		if ( ! is_object( $entries ) ) {
+			return $entries;
+		}
+
 		// If the entries are not an array, return them as is (likely false on failure).
-		if ( ! is_array( $entries ) ) {
+		if ( ! is_array( $entries->entries ) ) {
 			return $entries;
 		}
 
 		$limit = $this->get_import_strings_limit();
 		// If the number of entries exceeds the limit, slice the array to keep only the allowed number of entries.
-		if ( count( $entries ) > $limit ) {
-			$entries = array_slice( $entries, 0, $limit, true );
+		if ( count( $entries->entries ) > $limit ) {
+			$entries->entries = array_slice( $entries->entries, 0, $limit, true );
 		}
 
 		/**
