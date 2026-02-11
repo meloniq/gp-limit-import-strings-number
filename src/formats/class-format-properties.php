@@ -7,6 +7,11 @@
 
 namespace GlotCore\LimitImportStringsNumber;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use GP_Format_Properties;
 
 /**
