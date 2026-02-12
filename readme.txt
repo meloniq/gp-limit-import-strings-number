@@ -11,12 +11,13 @@ Adds a limit to the number of strings that can be imported in GlotPress.
 == Description ==
 
 Adds a limit to the number of strings that can be imported in [GlotPress](https://wordpress.org/plugins/glotpress/).
-It helps to prevent importing large translation projects that should use the paid GlotCore service instead.
+It helps to prevent importing large translation projects, sets a reasonable limit to avoid performance issues.
+It allows to provide a free tier for users who needs it for small personal projects.
 
 
 = Configuration =
 
-Once you have installed GlotCore Limit Import Strings Number it is ready to use, and the initial limit is set to 250 strings.
+Once you have installed GlotCore Limit Import Strings Number it is ready to use, and the initial limit is set to 1000 strings.
 You can change this limit by defining the following constant in your `wp-config.php` file:
 ```php
 define( 'GLOTCORE_IMPORT_STRINGS_LIMIT', 500 ); // Change 500 to your desired limit
